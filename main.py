@@ -48,7 +48,7 @@ while True:
     text = f"{str(fishes)} mississippi"
     print(time_inserted)
 
-    cursor.execute("""INSERT INTO public.fish_table (fishes, text_field, datetime, time_inserted) VALUES (%s, %s, %s ) RETURNING *""", (fishes,text,datetime_,time_inserted)) #Usage of fstrings here would make system vulnerable to sql injection. By using this method we ensure our sql library 'sanitizes' the inputs
+    cursor.execute(f"INSERT INTO public.fish_table (fishes, text_field, datetime, time_inserted) VALUES ({fishes}, {text}, {datetime_}, {time_inserted}) RETURNING *") #Usage of fstrings here would make system vulnerable to sql injection. By using this method we ensure our sql library 'sanitizes' the inputs
     new_post = cursor.fetchone() #fetches the post we just created and saves into variable
     conn.commit() #This is when the actual changes to the database are made (the post is added)
     print(f"sucessfully inserted {new_post}")
